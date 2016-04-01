@@ -42,7 +42,6 @@ public class ContaMagica {
 		switch (categoria) {
 			case GOLD:
 				saldo = saldo.add(valor.multiply(porcentagemSobreGold));
-				System.out.println(saldo);
 				break;
 				
 			case PLATINUM:
