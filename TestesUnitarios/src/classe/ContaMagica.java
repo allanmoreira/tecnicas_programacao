@@ -2,7 +2,6 @@ package classe;
 
 import java.math.BigDecimal;
 
-
 public class ContaMagica {
 	private String nomeCliente;
 	private BigDecimal saldo = new BigDecimal(0);
@@ -56,13 +55,18 @@ public class ContaMagica {
 	}
 
 	public void retirada(BigDecimal valor) {
-		saldo = saldo.subtract(valor);
-		
-		if(saldo.compareTo(limiteParaDowngraDePlatinumParaGold) == -1 && categoria == Categoria.PLATINUM){
-			categoria = Categoria.GOLD;
+		if(valor.compareTo(getSaldo()) >= 0){
+			throw new IllegalArgumentException("O valor informado é menor do que o saldo.");
 		}
-		else if(saldo.compareTo(limiteParaDowngraDeGoldParaSilver) == -1 && categoria == Categoria.GOLD){
-			categoria = Categoria.SILVER;
+		else {
+			saldo = saldo.subtract(valor);
+
+			if(saldo.compareTo(limiteParaDowngraDePlatinumParaGold) == -1 && categoria == Categoria.PLATINUM){
+				categoria = Categoria.GOLD;
+			}
+			else if(saldo.compareTo(limiteParaDowngraDeGoldParaSilver) == -1 && categoria == Categoria.GOLD){
+				categoria = Categoria.SILVER;
+			}
 		}
 	}
 }

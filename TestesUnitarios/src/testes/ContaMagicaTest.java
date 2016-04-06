@@ -19,31 +19,33 @@ public class ContaMagicaTest {
 		cm = new ContaMagica("Allan Moreira");
 	}
 
+    public void a(){
+        cm.getSaldo();
+    }
+
 	@After
 	public void tearDown(){
 	}
 	
 	@Test
-	public void testNomeCliente(){
+	public void testConstrutor(){
 		assertEquals("Allan Moreira", cm.getNomeCliente());
+        assertEquals(Categoria.SILVER, cm.getStatus());
 	}
 
-	@Test
-	public void testGetSaldoDeposito() {
+
+    @Test
+	public void testSaldo() {
         cm.deposito(new BigDecimal(500));
-		assertEquals(500, cm.getSaldo().doubleValue(), 0.001);
+        cm.deposito(new BigDecimal(500));
+		assertEquals(1000, cm.getSaldo().doubleValue(), 0.001);
 	}
-    // TODO nesse teste, se testa o getSaldo() e o retirada(int valor)
+
 	@Test
 	public void testGetSaldoSaque() {
         cm.deposito(new BigDecimal(500));
         cm.retirada(new BigDecimal(400));
 		assertEquals(100, cm.getSaldo().doubleValue(), 0.001);
-	}
-
-	@Test
-	public void testGetStatus(){
-		assertEquals(Categoria.SILVER, cm.getStatus());
 	}
 
     /*
@@ -59,6 +61,7 @@ public class ContaMagicaTest {
     * Não é explícito no texto se quando o depósito for maior do que 200.000 o cliente passa direto de Silver para Platinum
     * ou se não pode passar duas categorias de uma única vez
     * */
+    // TODO cenário 5
     @Test
     public void testUpgradeParaGold_2(){
         cm.deposito(new BigDecimal(1000000));
@@ -100,6 +103,7 @@ public class ContaMagicaTest {
     * Ao depositar 150000 reais, o cliente passa de Gold para Platinum. Qual porcentagem aplicar, a anterior ou a nova?
     * No caso abaixo, foi aplicado a porcentagem de 1% para depois migrar de categoria.
     * */
+    // TODO cenário 8
     @Test
     public void testPorcentagemCategoriaGold_2() {
         cm.deposito(new BigDecimal(50000));
@@ -136,6 +140,7 @@ public class ContaMagicaTest {
         cm.deposito(new BigDecimal(50000));
         cm.deposito(new BigDecimal(150000));
         cm.retirada(new BigDecimal(102000));
+        assertEquals(99500, cm.getSaldo().doubleValue(), 0.001);
         assertEquals(Categoria.GOLD, cm.getStatus());
     }
 
@@ -149,6 +154,7 @@ public class ContaMagicaTest {
         cm.deposito(new BigDecimal(50000));
         cm.deposito(new BigDecimal(150000));
         cm.retirada(new BigDecimal(177500));
+        assertEquals(24000, cm.getSaldo().doubleValue(), 0.001);
         assertEquals(Categoria.GOLD, cm.getStatus());
     }
 
@@ -158,6 +164,7 @@ public class ContaMagicaTest {
     * Ao sacar 171.500 reais, o saldo fica em 30.000 reais, e cliente cai para Gold.
     * Sacando 6.000 reais, o saldo vai para 24.000, e o cliente cai para Silver.
     */
+    /*
     @Test
     public void testDowngradeParaSilverPartindoDePlatinum() {
         cm.deposito(new BigDecimal(50000));
@@ -166,11 +173,13 @@ public class ContaMagicaTest {
         cm.retirada(new BigDecimal(6000));
         assertEquals(Categoria.SILVER, cm.getStatus());
     }
+    */
 
     @Test
     public void testDowngradeParaSilverPartindoDeGold() {
         cm.deposito(new BigDecimal(50000));
         cm.retirada(new BigDecimal(26000));
+        assertEquals(24000, cm.getSaldo().doubleValue(), 0.001);
         assertEquals(Categoria.SILVER, cm.getStatus());
     }
 
@@ -181,6 +190,6 @@ public class ContaMagicaTest {
     public void testSaqueSaldoIndisponivel() {
         cm.deposito(new BigDecimal(100));
         cm.retirada(new BigDecimal(200));
-        assertEquals(-100, cm.getSaldo().doubleValue(), 0.001);
+        assertEquals(5, cm.getSaldo().doubleValue(), 0.001);
     }
 }
