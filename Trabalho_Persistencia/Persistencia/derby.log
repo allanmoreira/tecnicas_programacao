@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Apr 26 17:51:09 BRT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0154-5456-fdb3-00000306b368 
+on database directory /home/PORTOALEGRE/12111151/DriveH/exercicios_tecnicas_programacao/Trabalho_Persistencia/Persistencia/sample with class loader sun.misc.Launcher$AppClassLoader@330bedb4 
+Loaded from file:/home/PORTOALEGRE/12111151/Downloads/db-derby-10.12.1.1-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_66-b17
+user.dir=/home/PORTOALEGRE/12111151/DriveH/exercicios_tecnicas_programacao/Trabalho_Persistencia/Persistencia
+os.name=Linux
+os.arch=amd64
+os.version=3.19.0-32-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
